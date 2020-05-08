@@ -1,0 +1,5 @@
+﻿  Building Custom Rule D:/_devProjects/Leaning/OpenGL/learnopengl/glfw/tests/CMakeLists.txt
+  triangle-vulkan.c
+  glad_vulkan.c
+  Generating Code...
+  triangle-vulkan.vcxproj -> D:\_devProjects\Leaning\OpenGL\learnopengl\build\tests\Debug\triangle-vulkan.exe

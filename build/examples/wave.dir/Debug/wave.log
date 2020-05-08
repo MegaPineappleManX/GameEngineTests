@@ -1,0 +1,5 @@
+﻿  Building Custom Rule D:/_devProjects/Leaning/OpenGL/learnopengl/glfw/examples/CMakeLists.txt
+  wave.c
+  glad_gl.c
+  Generating Code...
+  wave.vcxproj -> D:\_devProjects\Leaning\OpenGL\learnopengl\build\examples\Debug\wave.exe

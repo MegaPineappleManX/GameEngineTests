@@ -1,0 +1,5 @@
+﻿  Building Custom Rule D:/_devProjects/Leaning/OpenGL/learnopengl/glfw/examples/CMakeLists.txt
+  heightmap.c
+  glad_gl.c
+  Generating Code...
+  heightmap.vcxproj -> D:\_devProjects\Leaning\OpenGL\learnopengl\build\examples\Debug\heightmap.exe

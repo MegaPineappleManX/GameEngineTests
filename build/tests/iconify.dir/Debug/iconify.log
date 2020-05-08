@@ -1,0 +1,6 @@
+﻿  Building Custom Rule D:/_devProjects/Leaning/OpenGL/learnopengl/glfw/tests/CMakeLists.txt
+  iconify.c
+  getopt.c
+  glad_gl.c
+  Generating Code...
+  iconify.vcxproj -> D:\_devProjects\Leaning\OpenGL\learnopengl\build\tests\Debug\iconify.exe
