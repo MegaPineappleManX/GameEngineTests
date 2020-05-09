@@ -1,9 +1,9 @@
-#Generating Projects
+# Generating Projects
 
-##Windows & Visual Studio
+## Windows & Visual Studio
 
 ```cmake -G "Visual Studio 16 2019" -S source -B build```
 
-##MacOS & Xcode
+## MacOS & Xcode
 
 ```cmake -G "Xcode" -S source -B build```
