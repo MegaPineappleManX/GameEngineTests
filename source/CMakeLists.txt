@@ -23,7 +23,7 @@ if(result)
   message(FATAL_ERROR "Build step for glfw failed: ${result}")
 endif()
 
-
+# Download and unpack glad
 configure_file(CMakeLists-glad.txt.in glad/CmakeLists.txt)
 set(GLAD_INSTALL ON)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -41,8 +41,15 @@ if(result)
 endif()
 
 
-# add the executable
-add_executable(Tutorial main.cpp)
+# need to figure out how to include dear imgui
+# for now using git submodule
+
+file(GLOB IMGUI_SOURCE imgui/*.cpp imgui/*.h imgui/examples/imgui_impl_glfw.h imgui/examples/imgui_impl_opengl3.h imgui/examples/imgui_impl_glfw.cpp imgui/examples/imgui_impl_opengl3.cpp)
+
+file(GLOB RES_FILES *.frag *.vert *.glsl *.h)
+
+add_executable(Tutorial ${RES_FILES} ${IMGUI_SOURCE} Main.cpp)
+
 
 add_subdirectory(
     ${CMAKE_BINARY_DIR}/glfw-src
