@@ -12,6 +12,9 @@ public:
     void Update(float dt) {
         ProcessInput();
         deltaTime = dt;
+        
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     };
     
     GLFWwindow* Get() { return window; }

@@ -62,7 +62,7 @@ endif()
 
 #file(GLOB IMGUI_SOURCE imgui/*.cpp imgui/*.h imgui/examples/imgui_impl_glfw.h imgui/examples/imgui_impl_opengl3.h imgui/examples/imgui_impl_glfw.cpp imgui/examples/imgui_impl_opengl3.cpp)
 
-file(GLOB RES_FILES *.frag *.vert *.glsl *.h)
+file(GLOB RES_FILES *.frag *.vert *.glsl *.h *.cpp)
 
 file(GLOB ASSETS
    *.frag *.vert *.glsl *.jpg *.png
