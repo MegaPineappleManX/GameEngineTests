@@ -40,15 +40,36 @@ if(result)
   message(FATAL_ERROR "Build step for glad failed: ${result}")
 endif()
 
+# Download and unpack glm
+configure_file(CMakeLists-glm.txt.in glm/CmakeLists.txt)
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glm
+)
+if(result)
+  message(FATAL_ERROR "CMake step for glm failed: ${result}")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glm )
+if(result)
+  message(FATAL_ERROR "Build step for glm failed: ${result}")
+endif()
+
 
 # need to figure out how to include dear imgui
 # for now using git submodule
 
-file(GLOB IMGUI_SOURCE imgui/*.cpp imgui/*.h imgui/examples/imgui_impl_glfw.h imgui/examples/imgui_impl_opengl3.h imgui/examples/imgui_impl_glfw.cpp imgui/examples/imgui_impl_opengl3.cpp)
+#file(GLOB IMGUI_SOURCE imgui/*.cpp imgui/*.h imgui/examples/imgui_impl_glfw.h imgui/examples/imgui_impl_opengl3.h imgui/examples/imgui_impl_glfw.cpp imgui/examples/imgui_impl_opengl3.cpp)
 
 file(GLOB RES_FILES *.frag *.vert *.glsl *.h)
 
-add_executable(Tutorial ${RES_FILES} ${IMGUI_SOURCE} Main.cpp)
+file(GLOB ASSETS
+   *.frag *.vert *.glsl *.jpg *.png
+)
+file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR}/DEBUG)
+
+add_executable(Tutorial ${RES_FILES} Main.cpp stb_image.cpp)
 
 
 add_subdirectory(
@@ -59,10 +80,16 @@ add_subdirectory(
     ${CMAKE_BINARY_DIR}/glad-src
     ${CMAKE_BINARY_DIR}/glad-build)
 
+add_subdirectory(
+    ${CMAKE_BINARY_DIR}/glm-src
+    ${CMAKE_BINARY_DIR}/glm-build)
+
+
 target_link_libraries(Tutorial 
   PUBLIC
   glad
   glfw
+  glm
 
 
   PRIVATE
