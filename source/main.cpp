@@ -56,7 +56,7 @@ int main() {
 
     SetupGLAD();
     
-    Object obj = Object();
+    Object obj = Object("basicLitFragmentShader.frag");
     Object light = Object("lightFragmentShader.frag");
     
     light.SetPosition(glm::vec3(2.0f, 2.0f, -5.0f));
@@ -67,6 +67,7 @@ int main() {
     glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
     obj.GetShader()->setVec3("objectColor", objColor);
     obj.GetShader()->setVec3("lightColor", lightColor);
+    obj.GetShader()->setVec3("lightPos", light.GetPosition());
     
     while (!glfwWindowShouldClose(window.Get()))
     {
