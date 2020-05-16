@@ -1,5 +1,5 @@
 #pragma once
-class GLFWwindow;
+struct GLFWwindow;
 class Camera;
 
 void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -9,13 +9,8 @@ public:
     Window();
     ~Window();
     
-    void Update(float dt) {
-        ProcessInput();
-        deltaTime = dt;
-        
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    };
+	void Update(float dt);
+	void LateUpdate(float dt);
     
     GLFWwindow* Get() { return window; }
     
@@ -27,10 +22,10 @@ public:
 private:
     void ProcessInput();
     
-    GLFWwindow* window;
-    Camera* camera;
+    GLFWwindow* window = nullptr;
+    Camera* camera = nullptr;
     
-    float deltaTime;
+    float deltaTime = 0.0f;
     unsigned int width = 800;
     unsigned int height = 600;
     
@@ -38,6 +33,8 @@ private:
     //float lastY = 600 / 2.0f;
   
     //bool firstMouse = true;
+
+
 };
 
 

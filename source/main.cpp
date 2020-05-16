@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+
 #include <math.h>
 
 #include "Window.h"
@@ -26,35 +27,25 @@ Camera camera = Camera();
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     if (firstMouse)
       {
-          lastX = xpos;
-          lastY = ypos;
+          lastX = (float)xpos;
+          lastY = (float)ypos;
           firstMouse = false;
       }
 
-      float xoffset = xpos - lastX;
-      float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	  float xoffset = (float)xpos - lastX;
+	  float yoffset = lastY - (float)ypos; // reversed since y-coordinates go from bottom to top
 
-      lastX = xpos;
-      lastY = ypos;
+      lastX = (float)xpos;
+      lastY = (float)ypos;
 
     camera.ProcessMouseMovement(xoffset, yoffset);
 }
-
-bool SetupGLAD() {
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD/n";
-        return false;
-    }
-    return true;
-}
-
 
 int main() {
     Window window = Window();
     window.SetCurrentCamera(&camera);
     glfwSetCursorPosCallback(window.Get(), mouse_callback);
 
-    SetupGLAD();
     
     Object obj = Object("basicLitFragmentShader.frag");
     Object light = Object("lightFragmentShader.frag");
@@ -68,20 +59,26 @@ int main() {
     obj.GetShader()->setVec3("objectColor", objColor);
     obj.GetShader()->setVec3("lightColor", lightColor);
     obj.GetShader()->setVec3("lightPos", light.GetPosition());
-    
+
+
+
+
     while (!glfwWindowShouldClose(window.Get()))
     {
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        double currentFrame = glfwGetTime();
+        deltaTime = (float)currentFrame - lastFrame;
+        lastFrame = (float)currentFrame;
         
         window.Update(deltaTime);
         
         obj.Render(camera);
         light.Render(camera);
         
+		window.LateUpdate(deltaTime);
+
         glfwSwapBuffers(window.Get());
         glfwPollEvents();
     }
+
     return 0;
 }

@@ -56,6 +56,16 @@ if(result)
   message(FATAL_ERROR "Build step for glm failed: ${result}")
 endif()
 
+# imgui
+include(FetchContent)
+FetchContent_Declare(
+	imgui
+	GIT_REPOSITORY https://github.com/ocornut/imgui.git
+	GIT_TAG master
+)
+
+FetchContent_MakeAvailable(imgui)
+
 
 # need to figure out how to include dear imgui
 # for now using git submodule
@@ -69,7 +79,17 @@ file(GLOB ASSETS
 )
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR}/DEBUG)
 
-add_executable(Tutorial ${RES_FILES} Main.cpp stb_image.cpp)
+add_executable(Tutorial ${RES_FILES} Main.cpp 
+stb_image.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/imgui.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/imgui_draw.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/imgui_widgets.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/examples/imgui_impl_glfw.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/examples/imgui_impl_opengl3.cpp
+${CMAKE_BINARY_DIR}/_deps/imgui-src/imgui.h
+${CMAKE_BINARY_DIR}/_deps/imgui-src/examples/imgui_impl_glfw.h
+${CMAKE_BINARY_DIR}/_deps/imgui-src/examples/imgui_impl_opengl3.h
+)
 
 
 add_subdirectory(
@@ -83,14 +103,12 @@ add_subdirectory(
 add_subdirectory(
     ${CMAKE_BINARY_DIR}/glm-src
     ${CMAKE_BINARY_DIR}/glm-build)
-
-
+	
 target_link_libraries(Tutorial 
   PUBLIC
   glad
   glfw
   glm
-
 
   PRIVATE
   ${CMAKE_DL_LIBS})
